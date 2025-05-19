@@ -1,4 +1,3 @@
-1 Einleitung 
 In dieser Arbeit wird eine Machine-Learning-basierte Nachfrageprognose für ein Bike-Sharing
 System entwickelt, um Einblicke in die Nutzungsmuster und die Faktoren zu gewinnen, die die 
 Nachfrage beeinflussen. Ziel ist es, präzise Modelle zu erstellen, die zukünftige Nachfrage mit 
@@ -6,8 +5,6 @@ Berücksichtigung saisonaler Schwankungen und langfristiger Trends vorhersagen k
 Des Weiteren wird folgende Hypothese untersucht: Die Nachfrage lässt sich auch 
 ausschließlich auf Basis von Wetterdaten präzise vorhersagen.  
 
-2 Explorative Datenanalyse und Preprocessing 
-2.1 Datensatzbeschreibung 
 Der verwendete Datensatz umfasst tägliche Angaben zur Bike-Sharing-Nutzung über zwei 
 Jahre. Er besteht aus 15 Features, einem Target und 731 Instanzen. Wichtige Variablen 
 umfassen: 
@@ -17,13 +14,11 @@ umfassen:
 Für den Hypothesentest wird ein weiterer Datensatz ohne zeitliche Merkmale erstellt. Er 
 enthält ausschließlich meteorologische Daten.  
 
-2.2 Explorative Analyse der Rohdaten 
 Es sind drei von vier Datentypen enthalten: nominale, diskrete und kontinuierliche Daten. Die 
 kontinuierlichen Daten sind normalisiert und es sind keine fehlenden Daten im Datensatz 
 vorhanden. Die Daten des Targets sind nominal – Es liegt ein Regressionsproblem vor. Den 
 Kategorien der Features „weathersit“ und „season“ sind Nummern zugewiesen.  
 
-2.2.1 Analyse des Targets 
 Anhand der durchschnittlichen monatlichen und täglichen Nachfrage lässt sich eine klare 
 saisonale Schwankung und das Abzeichnen eines positiven Trends erkennen. Zwischen 
 Temperatur und Nachfrage lässt sich ein linearer Zusammenhang erkennen. Mit steigender 
@@ -31,14 +26,7 @@ Temperatur steigt die Nachfrage. Die Temperatur weist jedoch keinen 2-jährigen 
 Trend, sondern nur typische saisonale Schwankungen auf. Diese Erkenntnis lässt auf einen 
 übergeordneten Trend schließen, was schon jetzt auf eine Widerlegung der aufgestellten 
 Hypothese hinweist.   
-(a) Trend der Nachfrage     
-(b) Jahrestrend 
-1 
-(a) Trend der Temperatur   
-(b) Linearer Zusammenhang 
-Abbildung 1: Nachfrage/Temperatur – Trend und Zusammenhang 
 
-2.2.2 Korrelationsermittlung 
 Um das Datum als fortlaufende Zeitkomponente (Tage) in die Korrelationsermittlung einfließen 
 zu lassen, wurde das Feature ‚date‘ mit dem Feature ‚date_numeric‘ ersetzt. Die Ermittlung 
 der Korrelation ergibt eine Multikollinearität zwischen den unabhängigen Variablen „temp“ und 
@@ -51,12 +39,10 @@ Korrelationen zwischen allen Kombinationen aus zwei Variablen auf. Hier lässt s
 Multikollinearität und die Zusammenhänge zwischen den unabhängigen- und dem 
 Zielvariablen ablesen. Sowohl saisonale Merkmale wie z.B. ‚date_numeric‘ als auch 
 meteorologische Merkmale wie ‚atemp‘ korrelieren mit dem Zielwert ‚distribution‘.   
-Abbildung 2: Korrelationsmatrix 
-2 
+
 Nach der Korrelationsermittlung wurden einige Features aufgrund starker Multikollinearität und 
 fehlender Unabhängigkeit angepasst. 
-
-2.3 Feature Engineering und Datenvorverarbeitung 
+ 
 Zum besseren Verständnis wurden vor der Korrelationsermittlung den Kategorien der Features 
 ‚season‘ und ‚weathersit‘ wieder Namen zugewiesen und als Dummy-Variablen umgewandelt, 
 um ihre Effekte in das Modell einzubringen. Unverständliche Variablennamen wie 
@@ -71,25 +57,21 @@ enthalten.
 Die Variablen ‚registered‘ und ‚casual‘ sind nicht unabhängig und wurden aus dem Datensatz 
 entfernt. Die ID Variable ‚instant‘ wurde ebenfalls entfernt.    
 
-3 Modellerstellung 
-3.1 Modellauswahl und Metriken 
 Modelle: 
 (1) Random Forest 
 (2) XGBoost 
 (3) Lineare Regression 
 
-4 
 Für die Modellauswertung wurden R² und MSE verwendet, um die Anpassungsfähigkeit und 
 die Vorhersagegenauigkeit zu bewerten. 
  
-4 Ergebnisse und Evaluation 
 In diesem Kapitel werden die wichtigsten Ergebnisse der drei Modelle – Lineare Regression, 
 Random Forest und XGBoost – präsentiert und bewertet. Die Evaluation wurde basierend auf 
 den Metriken R²-Score und MSE (Mean Squared Error) durchgeführt, die die Genauigkeit und 
 die durchschnittliche quadratische Abweichung der Vorhersagen anzeigen. Zusätzlich zur 
 numerischen Auswertung wurden für jedes Modell visuelle Darstellungen erstellt, um die 
 Leistungsunterschiede und die Feature-Bedeutung besser zu veranschaulichen. 
-4.1 Lineare Regression 
+ 
 Die lineare Regression dient als einfaches Basis-Modell zur Vorhersage der Nachfrage. Ihre 
 Hauptstärke liegt in der schnellen Berechnung und der einfachen Interpretierbarkeit (siehe 
 Punkt 3.1). Mit der linearen Regression wurde zunächst die generelle Beziehung zwischen 
@@ -103,7 +85,6 @@ Erfassung saisonaler Schwankungen und komplexer Interaktionen zwischen Features 
 temp und humidity ein, was zu einer begrenzten Modellleistung führt. Die lineare Regression 
 diente daher als Ausgangspunkt und als Vergleichsbasis für die komplexeren Modelle 
 
-4.2 Random Forest 
 Der Random Forest-Algorithmus wurde als nächstes trainiert, um nichtlineare 
 Zusammenhänge zwischen den Features und der Nachfrage zu erfassen (siehe Punkt 3.1). 
 Durch die Hyperparameter-Optimierung mittels Random Search wurden optimale 
@@ -123,9 +104,7 @@ min_samples_split und max_depth auf die Modellleistung zu analysieren. Der final
 Hyperparameter-Tuning-Prozess ergab die besten Werte für diese Parameter und damit auch 
 eine höhere Stabilität und Robustheit (siehe Punkt 3.2) der Vorhersagen im Vergleich zur 
 linearen Regression. 
-Abbildung 4: Feature-Importance RF 
-7 
-4.3 XGBoost 
+
 XGBoost erzielte nach der Optimierung die besten Ergebnisse und erwies sich als das 
 leistungsstärkste Modell in dieser Untersuchung. Aufgrund seines Boosting-Ansatzes konnte 
 XGBoost komplexe Muster in den Daten optimal erkennen und saisonale sowie langfristige 
@@ -140,9 +119,7 @@ Variablen wie season_winter, date_numeric, und atemp die wichtigsten Features wa
 Werte verdeutlichen den Einfluss von zeitlichen und klimatischen Faktoren auf die Nachfrage. 
 Dies deckt sich mit der Erwartung, dass meteorologische und zeitliche Faktoren wesentliche 
 Einflussgrößen für die Nachfrage im Modell darstellen. 
-Abbildung 5: Feature-Importance XGB 
 
-4.4 Leistungsvergleich der Modelle 
 Der Vergleich der Modelle zeigt, dass XGBoost und Random Forest aufgrund ihrer Fähigkeit, 
 auch nichtlineare Muster zu modellieren (siehe Punkt 3.1), die höchste Genauigkeit erreicht. 
 Die Feature-Importance-Analyse veranschaulichte, dass zeitliche und wetterabhängige 
@@ -153,10 +130,8 @@ schließlich der linearen Regression als Grundmodell. Die Dokumentation der Erge
 durch Metriken und Visualisierungen lieferte wertvolle Einblicke in die Einflüsse der gewählten 
 Features und die Optimierungsschritte, die für die Modellverbesserung erforderlich waren. Die 
 Balkendiagramme (Abbildung 6) unten visualisieren den Leistungsvergleich der Modelle. Die 
-detaillierten Werte sind in der Tabelle 2 dokumentiert. Eine Visualisierung des Vergleiches der 
-tatsächlichen mit den vorhergesagten Werten ist in der Abbildung 7 zu finden. 
+detaillierten Werte sind in der Tabelle 2 dokumentiert. 
 
-4.5 Hypothesentest 
 In einem zusätzlichen Schritt wurde die Hypothese aufgestellt, dass sich die Nachfrage 
 ausschließlich auf Basis von Wetterdaten präzise vorhersagen lässt. Um diese Annahme zu 
 überprüfen, wurde der Datensatz auf wetterbezogene Variablen wie atemp, hum, windspeed 
@@ -176,7 +151,6 @@ werden: Es ist erforderlich, neben den Wetterdaten auch andere Faktoren wie zeit
 saisonale Merkmale einzubeziehen, um die Nachfrage präzise zu prognostizieren. Der Trend 
 der steigenden Nachfrage spiegelt sich nicht in den Wetterdaten wider.  
 
-5 Schlussfolgerung und Ausblick 
 Das Projekt hat gezeigt, dass die Nachfragevorhersage mittels Machine Learning effektiv 
 durchgeführt werden kann. Zukünftig könnten zusätzliche Wettermerkmale und weitere 
 externe Datenquellen die Modellgenauigkeit verbessern. Ein Ausbau der Vorhersage auf 
@@ -192,7 +166,7 @@ Modellgenauigkeit beitragen
 • Die Widerlegung der Hypothese betont die Bedeutung eines umfassenden 
 Datensatzes, der auch langfristige Trends und saisonale Muster enthält, um die 
 tatsächliche Nachfrage akkurat abzubilden. 
-11 
+
 A Codebase 
 Alle Programmierungen wurden in Python 3 durchgeführt. Die verwendeten Modelle stammen alle 
 aus der Bibliothek scikit-learn, mit Ausnahme des XGBoost-Algorithmus. Um XGBoost verwenden zu 
@@ -204,7 +178,6 @@ https://github.com/philhap/DS-Projektarbeit-Philipp-Heppler-Bike-Sharing
 Der Datensatz kann unter Bike Sharing – UCI Machine Learning Repository heruntergeladen 
 werden. 
 
-12 
 Literaturverzeichnis 
 [1] 
 Breiman, L. (2001). Random forests. Machine Learning, 45(1), 5-32. 
