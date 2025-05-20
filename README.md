@@ -15,7 +15,7 @@ Ziel war es, ein Vorhersagemodell für die Anzahl täglicher Fahrradverleihungen
 
 - Datenexploration: Datenlage/Visualisierung
 - Datenvorbereitung: Feature Engineering
-- Modellierung & Vergleich dreier Regressionsmodelle:
+- Modellierung, Hyperparameteroptimierung & Vergleich dreier Regressionsmodelle:
   - Random Forest
   - XGBoost
   - Lineare Regression (Baseline)
